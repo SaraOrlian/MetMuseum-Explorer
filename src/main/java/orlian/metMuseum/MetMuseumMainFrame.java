@@ -30,7 +30,7 @@ public class MetMuseumMainFrame extends JFrame {
         MetMuseumController controller = new MetMuseumController(service);
         controller.requestDepartmentsData(list);
 
-        JButton button = new JButton("Explore(Print)");
+        JButton button = new JButton("Explore");
         JScrollPane pane = new JScrollPane(list);
 
         DefaultListSelectionModel m = new DefaultListSelectionModel();
@@ -45,7 +45,7 @@ public class MetMuseumMainFrame extends JFrame {
                 element = (String) list.getModel().getElementAt(
                         selected[i]);
                 System.out.println("  " + element);
-                JFrame frame2 = new MetMuseumSubFrame(controller,  element, this);
+                new MetMuseumSubFrame(controller,  element, this);
             }
         });
 

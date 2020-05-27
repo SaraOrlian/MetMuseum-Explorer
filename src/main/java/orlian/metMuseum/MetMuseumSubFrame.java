@@ -42,7 +42,6 @@ public class MetMuseumSubFrame extends JFrame {
 
         panel2.add(title);
         panel2.add(name);
-        panel2.add(new JLabel("Hello!"));
 
         panel3.add(imageLabel, BorderLayout.WEST);
 
@@ -52,7 +51,7 @@ public class MetMuseumSubFrame extends JFrame {
 
         controller.requestDepartmentSingleData(element, frame, this,  name, title, imageLabel);
         setFirstOne(Integer.parseInt(frame.getFirstObject()));
-        setLastOne(Integer.parseInt(frame.getFirstObject()) + getTotal());
+        setLastOne((Integer.parseInt(frame.getFirstObject())) + getTotal());
 
         rightButton.addActionListener(actionEvent -> {
             imageLabel.setText("");
@@ -65,18 +64,23 @@ public class MetMuseumSubFrame extends JFrame {
             } else if(ix > getLastOne()) {
                 imageLabel.setIcon(null);
                 imageLabel.setText("You've looked through them all!");
+                frame.setFirstObject(String.valueOf(ix - 1));
             }
             });
 
         leftButton.addActionListener(actionEvent -> {
             imageLabel.setText("");
             int ix = Integer.parseInt(frame.getFirstObject());
+            System.out.println(ix - getFirstOne());
+            System.out.println(ix);
+            System.out.println(getFirstOne());
             if (ix - getFirstOne() > 0) {
                 frame.setFirstObject(String.valueOf(ix - 1));
                 controller.requestArticleNames(name, title, imageLabel, frame);
             }else if(ix < getFirstOne()) {
                 imageLabel.setIcon(null);
                 imageLabel.setText("You're back to the beginning!");
+                frame.setFirstObject(String.valueOf(ix + 1));
             }
         });
 

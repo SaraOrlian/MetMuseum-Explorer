@@ -56,6 +56,7 @@ public class MetMuseumController {
 
                 frame2.setTotal(response.body().total);
                 int fo = response.body().objectIDs.get(0);
+                System.out.println(fo);
                 frame.setFirstObject(Integer.toString(fo));
                 requestArticleNames(name, title, imageLabel, frame);
             }
@@ -80,6 +81,7 @@ public class MetMuseumController {
                 System.out.println(response.body().objectName);
                 System.out.println(response.body().primaryImage);
                 if (response.body().primaryImage.equals("")) {
+                    imageLabel.setIcon(null);
                     imageLabel.setText("Image Unavailable");
                 } else {
                     URL url = null;
