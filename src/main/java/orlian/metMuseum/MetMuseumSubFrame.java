@@ -2,23 +2,26 @@ package orlian.metMuseum;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MetMuseumSubFrame extends JFrame {
 
     JLabel name = new JLabel();
     JLabel title = new JLabel();
     JLabel imageLabel = new JLabel();
+    JLabel number = new JLabel();
+    JLabel outOf = new JLabel();
     private JButton leftButton = new JButton("Left");
     private JButton rightButton = new JButton("Right");
-    private int total;
-    int firstOne;
-    int lastOne;
+    int counter;
+    int total;
 
 
-    public MetMuseumSubFrame(MetMuseumController controller, String element, MetMuseumMainFrame frame) {
+    public MetMuseumSubFrame(String element, MetMuseumMainFrame frame, MetMuseumController controller) {
 
         setTitle("Articles");
-        setSize(500, 300);
+        setSize(700, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setVisible(true);
@@ -42,71 +45,74 @@ public class MetMuseumSubFrame extends JFrame {
 
         panel2.add(title);
         panel2.add(name);
+        panel2.add(number);
+        panel2.add(outOf);
 
         panel3.add(imageLabel, BorderLayout.WEST);
 
         title.setVisible(true);
         name.setVisible(true);
         imageLabel.setVisible(true);
+        number.setVisible(true);
+        outOf.setVisible(true);
 
-        controller.requestDepartmentSingleData(element, frame, this,  name, title, imageLabel);
-        setFirstOne(Integer.parseInt(frame.getFirstObject()));
-        setLastOne((Integer.parseInt(frame.getFirstObject())) + getTotal());
+        ArrayList<Integer> objectIDlist = new ArrayList<Integer>();
+
+
+        setCounter(0);
+        controller.requestDepartmentSingleData(element, frame, this, name, title, imageLabel, objectIDlist, outOf, number);
+
 
         rightButton.addActionListener(actionEvent -> {
             imageLabel.setText("");
-            int ix = Integer.parseInt(frame.getFirstObject());
-            System.out.println("Before: " + ix);
-            if( ix < getLastOne()) {
-                frame.setFirstObject(String.valueOf(ix + 1));
-                System.out.println("After: " + frame.getFirstObject());
-                controller.requestArticleNames(name, title, imageLabel, frame);
-            } else if(ix > getLastOne()) {
+
+            if(getCounter() < getTotal()) {
+                setCounter(getCounter() + 1);
+                controller.requestArticleNames(name, title, imageLabel, frame, this, objectIDlist, number);
+            } else if(getCounter() >= getTotal()) {
+                title.setText("");
+                name.setText("You've reached the end");
+                number.setText("");
+                outOf.setText("");
+                imageLabel.setText("");
                 imageLabel.setIcon(null);
-                imageLabel.setText("You've looked through them all!");
-                frame.setFirstObject(String.valueOf(ix - 1));
             }
-            });
+
+        });
 
         leftButton.addActionListener(actionEvent -> {
             imageLabel.setText("");
-            int ix = Integer.parseInt(frame.getFirstObject());
-            System.out.println(ix - getFirstOne());
-            System.out.println(ix);
-            System.out.println(getFirstOne());
-            if (ix - getFirstOne() > 0) {
-                frame.setFirstObject(String.valueOf(ix - 1));
-                controller.requestArticleNames(name, title, imageLabel, frame);
-            }else if(ix < getFirstOne()) {
+
+            if(getCounter() > 0) {
+                setCounter(getCounter() - 1);
+                controller.requestArticleNames(name, title, imageLabel, frame, this, objectIDlist, number);
+            }else if(getCounter() <= 0) {
+                title.setText("");
+                name.setText("You're back at the beginning");
+                number.setText("");
+                outOf.setText("");
+                imageLabel.setText("");
                 imageLabel.setIcon(null);
-                imageLabel.setText("You're back to the beginning!");
-                frame.setFirstObject(String.valueOf(ix + 1));
             }
+
         });
 
-        }
 
+    }
     public void setTotal(int total) {
         this.total = total;
     }
+
     public int getTotal() {
         return this.total;
     }
 
-    public void setFirstOne(int firstOne) {
-        this.firstOne = firstOne;
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 
-    public int getFirstOne() {
-        return this.firstOne;
-    }
-
-    public void setLastOne(int lastOne) {
-        this.lastOne = lastOne;
-    }
-
-    public int getLastOne() {
-        return this.lastOne;
+    public int getCounter() {
+        return this.counter;
     }
 }
 

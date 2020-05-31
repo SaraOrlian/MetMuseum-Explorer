@@ -46,19 +46,18 @@ public class MetMuseumController {
     }
 
 
-    public void requestDepartmentSingleData(String element, MetMuseumMainFrame frame, MetMuseumSubFrame frame2, JLabel name, JLabel title, JLabel imageLabel) {
-        int elementID = departmentsInfo.get(element);
-        id = Integer.toString(elementID);
-        System.out.println(id);
-        service.getDepartmentSingle(id).enqueue(new Callback<DepartmentSingleObject>() {
+    public void requestDepartmentSingleData(String element, MetMuseumMainFrame frame, MetMuseumSubFrame frame2, JLabel name, JLabel title, JLabel imageLabel, ArrayList<Integer> objectIDlist, JLabel outOf, JLabel number) {
+        service.getDepartmentSingle(Integer.toString(departmentsInfo.get(element))).enqueue(new Callback<DepartmentSingleObject>() {
             @Override
             public void onResponse(Call<DepartmentSingleObject> call, Response<DepartmentSingleObject> response) {
 
-                frame2.setTotal(response.body().total);
-                int fo = response.body().objectIDs.get(0);
-                System.out.println(fo);
-                frame.setFirstObject(Integer.toString(fo));
-                requestArticleNames(name, title, imageLabel, frame);
+
+                int total = response.body().total;
+                frame2.setTotal(total);
+                System.out.println("Total objects in dept: " + total);
+                outOf.setText("Total objects in Department: " + total);
+                objectIDlist.addAll(response.body().objectIDs);
+                requestArticleNames(name, title, imageLabel, frame, frame2, objectIDlist, number);
             }
 
             @Override
@@ -70,16 +69,24 @@ public class MetMuseumController {
     }
 
 
-    public void requestArticleNames(JLabel name, JLabel title, JLabel imageLabel, MetMuseumMainFrame frame) {
-        service.getArticle(frame.getFirstObject()).enqueue(new Callback<ArticleObject>() {
+    public void requestArticleNames(JLabel name, JLabel title, JLabel imageLabel, MetMuseumMainFrame frame, MetMuseumSubFrame frame2, ArrayList<Integer> objectIDlist, JLabel number) {
+        service.getArticle(String.valueOf(objectIDlist.get(frame2.getCounter()))).enqueue(new Callback<ArticleObject>() {
             @Override
             public void onResponse(Call<ArticleObject> call, Response<ArticleObject> response) {
 
                 title.setText(response.body().period);
-                System.out.println(response.body().title);
                 name.setText(response.body().objectName);
+
+                System.out.println(response.body().title);
                 System.out.println(response.body().objectName);
                 System.out.println(response.body().primaryImage);
+
+                if(frame2.getCounter() == 0) {
+                    number.setText("First Object ID in this department: " + response.body().objectID);
+                }else {
+                    number.setText("Object ID: " + response.body().objectID);
+                }
+
                 if (response.body().primaryImage.equals("")) {
                     imageLabel.setIcon(null);
                     imageLabel.setText("Image Unavailable");

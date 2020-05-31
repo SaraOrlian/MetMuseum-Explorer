@@ -13,7 +13,6 @@ public class MetMuseumMainFrame extends JFrame {
     ArrayList<String> id;
     JList list;
     String element;
-    private String firstObject;
 
     public MetMuseumMainFrame() {
 
@@ -45,7 +44,9 @@ public class MetMuseumMainFrame extends JFrame {
                 element = (String) list.getModel().getElementAt(
                         selected[i]);
                 System.out.println("  " + element);
-                new MetMuseumSubFrame(controller,  element, this);
+
+                new MetMuseumSubFrame(element, this, controller);
+
             }
         });
 
@@ -54,13 +55,6 @@ public class MetMuseumMainFrame extends JFrame {
         add(button, BorderLayout.SOUTH);
 
 
-    }
-
-    public void setFirstObject(String firstObject) {
-        this.firstObject = firstObject;
-    }
-    public String getFirstObject() {
-        return this.firstObject;
     }
 
 
