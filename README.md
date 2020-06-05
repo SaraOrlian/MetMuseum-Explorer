@@ -14,3 +14,6 @@ Project for MCO152, implementation of:
 * Markdown
 
 
+![Alt](screenshots/MetMuseumDepts.png "Department Choices Frame")
+
+![Alt](screenshots/MetMuseumObjects.png "Department Objects Frame")
