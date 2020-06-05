@@ -3,7 +3,7 @@ package orlian.metMuseum;
 
 import java.util.ArrayList;
 
-public class DepartmentsObject {
+public class DepartmentsFeed {
 
    ArrayList<DeptObject> departments = new ArrayList<DeptObject>();
 

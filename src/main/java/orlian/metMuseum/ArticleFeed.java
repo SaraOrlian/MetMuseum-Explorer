@@ -1,6 +1,6 @@
 package orlian.metMuseum;
 
-public class ArticleObject {
+public class ArticleFeed {
 
     String objectID;
     String department;

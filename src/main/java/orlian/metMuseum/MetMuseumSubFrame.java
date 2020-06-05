@@ -3,7 +3,7 @@ package orlian.metMuseum;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.HashMap;
 
 public class MetMuseumSubFrame extends JFrame {
 
@@ -16,9 +16,10 @@ public class MetMuseumSubFrame extends JFrame {
     private JButton rightButton = new JButton("Right");
     int counter;
     int total;
+    ArrayList<Integer> objectIDlist;
 
 
-    public MetMuseumSubFrame(String element, MetMuseumMainFrame frame, MetMuseumController controller) {
+    public MetMuseumSubFrame(String element, MetMuseumMainFrame frame, JList list, HashMap<String, Integer> departmentsInfo) {
 
         setTitle("Articles");
         setSize(700, 300);
@@ -56,11 +57,32 @@ public class MetMuseumSubFrame extends JFrame {
         number.setVisible(true);
         outOf.setVisible(true);
 
-        ArrayList<Integer> objectIDlist = new ArrayList<Integer>();
+        objectIDlist = new ArrayList<Integer>();
 
+        MetMuseumService service = new MetMuseumServiceFactory().getInstance();
+        MetMuseumArticleController articleController = new MetMuseumArticleController(service
+                                                                                        , name
+                                                                                        , title
+                                                                                        , imageLabel
+                                                                                        , this
+                                                                                        , objectIDlist
+                                                                                        , number);
+        MetMuseumDepartmentsSingleController controller = new MetMuseumDepartmentsSingleController(service
+                                                                                                    , element
+                                                                                                    , list
+                                                                                                    , name
+                                                                                                    , title
+                                                                                                    , imageLabel
+                                                                                                    , frame
+                                                                                                    , this
+                                                                                                    , articleController
+                                                                                                    , objectIDlist
+                                                                                                    , number
+                                                                                                    , outOf
+                                                                                                    , departmentsInfo);
 
         setCounter(0);
-        controller.requestDepartmentSingleData(element, frame, this, name, title, imageLabel, objectIDlist, outOf, number);
+        controller.requestDepartmentSingleData();
 
 
         rightButton.addActionListener(actionEvent -> {
@@ -68,7 +90,7 @@ public class MetMuseumSubFrame extends JFrame {
 
             if(getCounter() < getTotal()) {
                 setCounter(getCounter() + 1);
-                controller.requestArticleNames(name, title, imageLabel, frame, this, objectIDlist, number);
+                articleController.requestArticleNames();
             } else if(getCounter() >= getTotal()) {
                 title.setText("");
                 name.setText("You've reached the end");
@@ -85,7 +107,7 @@ public class MetMuseumSubFrame extends JFrame {
 
             if(getCounter() > 0) {
                 setCounter(getCounter() - 1);
-                controller.requestArticleNames(name, title, imageLabel, frame, this, objectIDlist, number);
+                articleController.requestArticleNames();
             }else if(getCounter() <= 0) {
                 title.setText("");
                 name.setText("You're back at the beginning");

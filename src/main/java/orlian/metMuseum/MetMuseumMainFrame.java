@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class MetMuseumMainFrame extends JFrame {
@@ -13,6 +14,7 @@ public class MetMuseumMainFrame extends JFrame {
     ArrayList<String> id;
     JList list;
     String element;
+    HashMap<String, Integer> departmentsInfo;
 
     public MetMuseumMainFrame() {
 
@@ -24,10 +26,11 @@ public class MetMuseumMainFrame extends JFrame {
         label = new ArrayList<>();
         list = new JList();
         id = new ArrayList<>();
+        departmentsInfo = new HashMap<String, Integer>();
 
         MetMuseumService service = new MetMuseumServiceFactory().getInstance();
-        MetMuseumController controller = new MetMuseumController(service);
-        controller.requestDepartmentsData(list);
+        MetMuseumDepartmentsController controller = new MetMuseumDepartmentsController(service, element, list, departmentsInfo);
+        controller.requestDepartmentsData();
 
         JButton button = new JButton("Explore");
         JScrollPane pane = new JScrollPane(list);
@@ -45,16 +48,13 @@ public class MetMuseumMainFrame extends JFrame {
                         selected[i]);
                 System.out.println("  " + element);
 
-                new MetMuseumSubFrame(element, this, controller);
+                new MetMuseumSubFrame(element, this, list, departmentsInfo);
 
             }
         });
 
-
         add(pane, BorderLayout.NORTH);
         add(button, BorderLayout.SOUTH);
-
-
     }
 
 
@@ -63,7 +63,6 @@ public class MetMuseumMainFrame extends JFrame {
         frame.setVisible(true);
 
     }
-
 
 }
 
