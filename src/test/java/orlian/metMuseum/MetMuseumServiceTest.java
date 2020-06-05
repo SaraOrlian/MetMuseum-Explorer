@@ -4,7 +4,6 @@ import org.junit.Test;
 import retrofit2.Response;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -17,12 +16,12 @@ public class MetMuseumServiceTest {
         MetMuseumService service = new MetMuseumServiceFactory().getInstance();
 
         //when
-        DepartmentsObject departments = service.getDepartments().execute().body();
-        Response<DepartmentsObject> response = service.getDepartments().execute();
+        DepartmentsFeed departments = service.getDepartments().execute().body();
+        Response<DepartmentsFeed> response = service.getDepartments().execute();
 
         //then
         assertTrue(response.toString(), response.isSuccessful());
-        List<DepartmentsObject.DeptObject> deptsObjects = departments.departments;
+        List<DepartmentsFeed.DeptObject> deptsObjects = departments.departments;
         assertFalse(deptsObjects.isEmpty());
         assertNotNull(deptsObjects.size());
         assertNotNull(deptsObjects.get(0).displayName);
@@ -38,12 +37,12 @@ public class MetMuseumServiceTest {
         MetMuseumService service = new MetMuseumServiceFactory().getInstance();
 
         //when
-        DepartmentSingleObject departmentSingle = service.getDepartmentSingle("1").execute().body();
-        Response<DepartmentSingleObject> response = service.getDepartmentSingle("1").execute();
+        DepartmentSingleFeed departmentSingle = service.getDepartmentSingle("1").execute().body();
+        Response<DepartmentSingleFeed> response = service.getDepartmentSingle("1").execute();
 
         //then
         assertTrue(response.toString(), response.isSuccessful());
-        DepartmentSingleObject deptSingleObject = departmentSingle;
+        DepartmentSingleFeed deptSingleObject = departmentSingle;
         assertNotNull(deptSingleObject.total);
         assertNotNull(deptSingleObject.objectIDs.get(0));
         System.out.println(departmentSingle.objectIDs.size());
@@ -57,12 +56,12 @@ public class MetMuseumServiceTest {
         MetMuseumService service = new MetMuseumServiceFactory().getInstance();
 
         //when
-        ArticleObject articleObject = service.getArticle("501607").execute().body();
-        Response<ArticleObject> response = service.getArticle("501607").execute();
+        ArticleFeed articleObject = service.getArticle("501607").execute().body();
+        Response<ArticleFeed> response = service.getArticle("501607").execute();
 
         //then
         assertTrue(response.toString(), response.isSuccessful());
-        ArticleObject article = articleObject;
+        ArticleFeed article = articleObject;
         assertNotNull(article.objectID);
         assertNotNull(article.objectName);
         assertNotNull(article.culture);
