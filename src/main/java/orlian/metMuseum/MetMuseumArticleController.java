@@ -11,9 +11,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class MetMuseumArticleController {
+public class MetMuseumArticleController implements Callback<ArticleFeed> {
 
     private MetMuseumService service;
     JLabel name;
@@ -40,51 +39,49 @@ public class MetMuseumArticleController {
     }
 
     public void requestArticleNames() {
-        service.getArticle(String.valueOf(objectIDlist.get(frame2.getCounter()))).enqueue(new Callback<ArticleFeed>() {
-            @Override
-            public void onResponse(Call<ArticleFeed> call, Response<ArticleFeed> response) {
+        service.getArticle(String.valueOf(objectIDlist.get(frame2.getCounter()))).enqueue(this); }
 
-                title.setText(response.body().period);
-                name.setText(response.body().objectName);
+    @Override
+    public void onResponse(Call<ArticleFeed> call, Response<ArticleFeed> response) {
 
-                System.out.println(response.body().title);
-                System.out.println(response.body().objectName);
-                System.out.println(response.body().primaryImage);
+        title.setText(response.body().period);
+        name.setText(response.body().objectName);
 
-                if(frame2.getCounter() == 0) {
-                    number.setText("First Object ID in this department: " + response.body().objectID);
-                }else {
-                    number.setText("Object ID: " + response.body().objectID);
-                }
+        System.out.println(response.body().title);
+        System.out.println(response.body().objectName);
+        System.out.println(response.body().primaryImage);
 
-                if (response.body().primaryImage.equals("")) {
-                    imageLabel.setIcon(null);
-                    imageLabel.setText("Image Unavailable");
-                } else {
-                    URL url = null;
-                    try {
+        if(frame2.getCounter() == 0) {
+            number.setText("First Object ID in this department: " + response.body().objectID);
+        }else {
+            number.setText("Object ID: " + response.body().objectID);
+        }
 
-                        url = new URL(response.body().primaryImage);
+        if (response.body().primaryImage.equals("")) {
+            imageLabel.setIcon(null);
+            imageLabel.setText("Image Unavailable");
+        } else {
+            URL url = null;
+            try {
 
-                    } catch(MalformedURLException e){
-                        e.printStackTrace();
-                    }
-                    Image image = null;
-                    try {
-                        image = ImageIO.read(url);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    imageLabel.setIcon(new ImageIcon(image.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
-                }
+                url = new URL(response.body().primaryImage);
 
+            } catch(MalformedURLException e){
+                e.printStackTrace();
             }
-
-            @Override
-            public void onFailure(Call<ArticleFeed> call, Throwable t) {
+            Image image = null;
+            try {
+                image = ImageIO.read(url);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        });
+            imageLabel.setIcon(new ImageIcon(image.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
+        }
 
+    }
+
+    @Override
+    public void onFailure(Call<ArticleFeed> call, Throwable t) {
     }
 
 

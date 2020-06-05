@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MetMuseumDepartmentsSingleController {
+public class MetMuseumDepartmentsSingleController implements Callback<DepartmentSingleFeed> {
 
     private MetMuseumService service;
     private HashMap<String, Integer> departmentsInfo;
@@ -59,28 +59,29 @@ public class MetMuseumDepartmentsSingleController {
 
 
     public void requestDepartmentSingleData() {
-        service.getDepartmentSingle(Integer.toString(departmentsInfo.get(element))).enqueue(new Callback<DepartmentSingleFeed>() {
-            @Override
-            public void onResponse(Call<DepartmentSingleFeed> call, Response<DepartmentSingleFeed> response) {
+        service.getDepartmentSingle(Integer.toString(departmentsInfo.get(element))).enqueue(this); }
 
-                int total = response.body().total;
-                frame2.setTotal(total);
-                System.out.println("Total objects in dept: " + total);
-                outOf.setText("Total objects in Department: " + total);
-                objectIDlist.addAll(response.body().objectIDs);
-                controller.requestArticleNames();
-            }
+    @Override
+    public void onResponse(Call<DepartmentSingleFeed> call, Response<DepartmentSingleFeed> response) {
 
-            @Override
-            public void onFailure(Call<DepartmentSingleFeed> call, Throwable t) {
+        int total = response.body().total;
+        frame2.setTotal(total);
+        System.out.println("Total objects in dept: " + total);
+        outOf.setText("Total objects in Department: " + total);
+        objectIDlist.addAll(response.body().objectIDs);
+        controller.requestArticleNames();
+    }
 
-            }
-        });
+    @Override
+    public void onFailure(Call<DepartmentSingleFeed> call, Throwable t) {
+
+    }
+
 
     }
 
 
 
 
-}
+
 
