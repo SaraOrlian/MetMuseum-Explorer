@@ -21,6 +21,8 @@ public class MetMuseumSubFrame extends JFrame {
 
     public MetMuseumSubFrame(String element, MetMuseumMainFrame frame, JList list, HashMap<String, Integer> departmentsInfo) {
 
+
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("Articles");
         setSize(700, 300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -93,7 +93,9 @@ public class MetMuseumDepartmentsSingleControllerTest {
 
         //then
         verify(frame2).setTotal(feed.total);
+        verify(label).setText("Total objects in Department: " + frame2.getTotal());
         verify(objectIDlist_).addAll(feed.objectIDs);
+        verify(articleController).requestArticleNames();
     }
 
 

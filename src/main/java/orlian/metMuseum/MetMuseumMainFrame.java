@@ -42,11 +42,11 @@ public class MetMuseumMainFrame extends JFrame {
 
         button.addActionListener(actionEvent -> {
             int selected[] = list.getSelectedIndices();
-            // Print Name of Selected Department
+
             for (int i = 0; i < selected.length; i++) {
                 element = (String) list.getModel().getElementAt(
                         selected[i]);
-                System.out.println("  " + element);
+                System.out.println("  " + element);// Print Name of Selected Department
 
                 new MetMuseumSubFrame(element, this, list, departmentsInfo);
 

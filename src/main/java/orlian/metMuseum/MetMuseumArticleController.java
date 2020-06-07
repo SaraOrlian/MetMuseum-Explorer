@@ -47,7 +47,7 @@ public class MetMuseumArticleController implements Callback<ArticleFeed> {
         title.setText(response.body().period);
         name.setText(response.body().objectName);
 
-        System.out.println(response.body().title);
+        System.out.println(response.body().period);
         System.out.println(response.body().objectName);
         System.out.println(response.body().primaryImage);
 
@@ -73,6 +73,8 @@ public class MetMuseumArticleController implements Callback<ArticleFeed> {
             try {
                 image = ImageIO.read(url);
             } catch (IOException e) {
+                imageLabel.setIcon(null);
+                imageLabel.setText("Error during retrieval of Image");
                 e.printStackTrace();
             }
             imageLabel.setIcon(new ImageIcon(image.getScaledInstance(200, 200, Image.SCALE_SMOOTH)));
@@ -82,6 +84,10 @@ public class MetMuseumArticleController implements Callback<ArticleFeed> {
 
     @Override
     public void onFailure(Call<ArticleFeed> call, Throwable t) {
+        title.setText("");
+        name.setText("Error occurred when retrieving article data");
+        imageLabel.setIcon(null);
+        imageLabel.setText("");
     }
 
 

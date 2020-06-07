@@ -64,10 +64,9 @@ public class MetMuseumDepartmentsSingleController implements Callback<Department
     @Override
     public void onResponse(Call<DepartmentSingleFeed> call, Response<DepartmentSingleFeed> response) {
 
-        int total = response.body().total;
-        frame2.setTotal(total);
-        System.out.println("Total objects in dept: " + total);
-        outOf.setText("Total objects in Department: " + total);
+        frame2.setTotal(response.body().total);
+        System.out.println("Total objects in dept: " + frame2.getTotal());
+        outOf.setText("Total objects in Department: " + frame2.getTotal());
         objectIDlist.addAll(response.body().objectIDs);
         controller.requestArticleNames();
     }
