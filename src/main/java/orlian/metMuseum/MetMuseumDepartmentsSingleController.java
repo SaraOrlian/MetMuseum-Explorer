@@ -17,17 +17,17 @@ public class MetMuseumDepartmentsSingleController implements Callback<Department
 
     private MetMuseumService service;
     private HashMap<String, Integer> departmentsInfo;
-    String element;
-    JList list;
-    JLabel name;
-    JLabel title;
-    JLabel imageLabel;
-    MetMuseumMainFrame frame;
-    MetMuseumSubFrame frame2;
-    MetMuseumArticleController controller;
-    ArrayList<Integer> objectIDlist;
-    JLabel number;
-    JLabel outOf;
+    private String element;
+    private JList list;
+    private JLabel name;
+    private JLabel title;
+    private JLabel imageLabel;
+    private MetMuseumMainFrame frame;
+    private MetMuseumSubFrame frame2;
+    private MetMuseumArticleController controller;
+    private ArrayList<Integer> objectIDlist;
+    private JLabel number;
+    private JLabel outOf;
 
     public MetMuseumDepartmentsSingleController(MetMuseumService service
                                                 , String element

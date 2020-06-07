@@ -12,8 +12,8 @@ public class MetMuseumDepartmentsController implements Callback<DepartmentsFeed>
 
     private MetMuseumService service;
     private HashMap<String, Integer> departmentsInfo;
-    String element;
-    JList list;
+    private String element;
+    private JList list;
 
     public MetMuseumDepartmentsController(MetMuseumService service
                                 , String element

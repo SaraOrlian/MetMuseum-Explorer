@@ -15,12 +15,12 @@ import java.util.ArrayList;
 public class MetMuseumArticleController implements Callback<ArticleFeed> {
 
     private MetMuseumService service;
-    JLabel name;
-    JLabel title;
-    JLabel imageLabel;
-    MetMuseumSubFrame frame2;
-    ArrayList<Integer> objectIDlist;
-    JLabel number;
+    private JLabel name;
+    private JLabel title;
+    private JLabel imageLabel;
+    private MetMuseumSubFrame frame2;
+    private ArrayList<Integer> objectIDlist;
+    private JLabel number;
 
     public MetMuseumArticleController(MetMuseumService service
             , JLabel name

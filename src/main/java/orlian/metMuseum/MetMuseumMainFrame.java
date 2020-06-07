@@ -4,17 +4,15 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class MetMuseumMainFrame extends JFrame {
 
-    ArrayList<String> label;
-    ArrayList<String> id;
-    JList list;
-    String element;
-    HashMap<String, Integer> departmentsInfo;
+
+    private JList list;
+    private String element;
+    private HashMap<String, Integer> departmentsInfo;
 
     public MetMuseumMainFrame() {
 
@@ -23,9 +21,7 @@ public class MetMuseumMainFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        label = new ArrayList<>();
         list = new JList();
-        id = new ArrayList<>();
         departmentsInfo = new HashMap<String, Integer>();
 
         MetMuseumService service = new MetMuseumServiceFactory().getInstance();

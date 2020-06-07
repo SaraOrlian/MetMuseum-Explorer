@@ -7,16 +7,16 @@ import java.util.HashMap;
 
 public class MetMuseumSubFrame extends JFrame {
 
-    JLabel name = new JLabel();
-    JLabel title = new JLabel();
-    JLabel imageLabel = new JLabel();
-    JLabel number = new JLabel();
-    JLabel outOf = new JLabel();
+    private JLabel name = new JLabel();
+    private JLabel title = new JLabel();
+    private JLabel imageLabel = new JLabel();
+    private JLabel number = new JLabel();
+    private JLabel outOf = new JLabel();
     private JButton leftButton = new JButton("Left");
     private JButton rightButton = new JButton("Right");
-    int counter;
-    int total;
-    ArrayList<Integer> objectIDlist;
+    private int counter;
+    private int total;
+    private ArrayList<Integer> objectIDlist;
 
 
     public MetMuseumSubFrame(String element, MetMuseumMainFrame frame, JList list, HashMap<String, Integer> departmentsInfo) {
