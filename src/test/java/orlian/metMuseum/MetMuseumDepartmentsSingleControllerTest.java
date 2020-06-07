@@ -18,9 +18,7 @@ public class MetMuseumDepartmentsSingleControllerTest {
         //given
         MetMuseumService service = mock(MetMuseumService.class);
         String element = "Arms and Armour";
-        JList list = mock(JList.class);
         JLabel label = mock(JLabel.class);
-        MetMuseumMainFrame frame = mock(MetMuseumMainFrame.class);
         MetMuseumSubFrame frame2 = mock(MetMuseumSubFrame.class);
         HashMap<String, Integer> departmentsInfo = new HashMap<>();
         ArrayList<Integer> objectIDlist = new ArrayList<>();
@@ -30,15 +28,9 @@ public class MetMuseumDepartmentsSingleControllerTest {
         doReturn(call).when(service).getDepartmentSingle(Integer.toString(departmentsInfo.get(element)));
         MetMuseumDepartmentsSingleController controller = new MetMuseumDepartmentsSingleController(service
                                                                                                     , element
-                                                                                                    , list
-                                                                                                    , label
-                                                                                                    , label
-                                                                                                    , label
-                                                                                                    , frame
                                                                                                     , frame2
                                                                                                     , articleController
                                                                                                     , objectIDlist
-                                                                                                    , label
                                                                                                     , label
                                                                                                     , departmentsInfo);
 
@@ -56,9 +48,7 @@ public class MetMuseumDepartmentsSingleControllerTest {
         //given
         MetMuseumService service = mock(MetMuseumService.class);
         String element = "Arms and Armour";
-        JList list = mock(JList.class);
         JLabel label = mock(JLabel.class);
-        MetMuseumMainFrame frame = mock(MetMuseumMainFrame.class);
         MetMuseumSubFrame frame2 = mock(MetMuseumSubFrame.class);
         HashMap<String, Integer> departmentsInfo = new HashMap<>();
         ArrayList<Integer> objectIDlist_ = mock(ArrayList.class);
@@ -68,15 +58,9 @@ public class MetMuseumDepartmentsSingleControllerTest {
         Call<DepartmentSingleFeed> call = mock(Call.class);
         MetMuseumDepartmentsSingleController controller = new MetMuseumDepartmentsSingleController(service
                                                                                                     , element
-                                                                                                    , list
-                                                                                                    , label
-                                                                                                    , label
-                                                                                                    , label
-                                                                                                    , frame
                                                                                                     , frame2
                                                                                                     , articleController
                                                                                                     , objectIDlist_
-                                                                                                    , label
                                                                                                     , label
                                                                                                     , departmentsInfo);
 

@@ -71,15 +71,9 @@ public class MetMuseumSubFrame extends JFrame {
                                                                                         , number);
         MetMuseumDepartmentsSingleController controller = new MetMuseumDepartmentsSingleController(service
                                                                                                     , element
-                                                                                                    , list
-                                                                                                    , name
-                                                                                                    , title
-                                                                                                    , imageLabel
-                                                                                                    , frame
                                                                                                     , this
                                                                                                     , articleController
                                                                                                     , objectIDlist
-                                                                                                    , number
                                                                                                     , outOf
                                                                                                     , departmentsInfo);
 
